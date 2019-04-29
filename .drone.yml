@@ -6,7 +6,7 @@ matrix:
 pipeline:
   build_jira:
     image: ukhomeoffice/drone-docker
-    repo: quay.io/cicd/app-docker
+    repo: quay.io/sais/dacc
     secrets: [ docker_username, docker_password ]
     registry: quay.io
     dockerfile: Dockerfile
