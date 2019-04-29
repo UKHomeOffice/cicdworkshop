@@ -1,1 +1,1 @@
-#CICD workshop
+#CICD workshop for Infra team
