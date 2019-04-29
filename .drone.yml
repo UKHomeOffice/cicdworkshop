@@ -1,36 +1,20 @@
-  
+
+matrix:
+  APP_VERSION:
+    - 1.0.0
+
 pipeline:
-    web_build_image:
-      image: docker:17.07.0-ce
-      environment:
-        - DOCKER_HOST=tcp://172.17.0.1:2375
-      commands:
-        - docker build -t cicdworkshop:$${DRONE_COMMIT_SHA} .
-      when:
-        event: [push, tag]
-    web_latest_image_to_quay:
-      image: docker:17.07.0-ce
-      secrets:
-        - docker_password
-      environment:
-        - DOCKER_HOST=tcp://172.17.0.1:2375
-      commands:
-        - docker login -u="aliyanaziz" -p=$${DOCKER_PASSWORD} quay.io
-        - docker tag cicdworkshop:$${DRONE_COMMIT_SHA} quay.io/cicd/cicdworkshop:$${DRONE_COMMIT_SHA}
-        - docker tag cicdworkshop:$${DRONE_COMMIT_SHA} quay.io/cicd/cicdworkshop:latest
-        - docker push quay.io/cicd/cicdworkshop:$${DRONE_COMMIT_SHA}
-        - docker push quay.io/cicd/cicdworkshop:latest
-      when:
-        event: push
-        branch: master
-    deploy_to_dev:
-      image: quay.io/cicd/kd:v0.3.1
-      secrets:
-        - kube_server_acp_notprod
-        - kube_token_acp_notprod
-        - my_secret
-      commands:
-        - ./deploy.sh
-      when:
-        event: [deployment, push]
-        branch: master
+  build_jira:
+    image: ukhomeoffice/drone-docker
+    repo: quay.io/cicd/app-docker
+    secrets: [ docker_username, docker_password ]
+    registry: quay.io
+    context: app/app-docker
+    dockerfile: Dockerfile
+    force_tag: true
+    build_args:
+      - APP_VERSION=${APP_VERSION}
+    tags:
+      - ${APP_VERSION}
+    when:
+      event: push
