@@ -1,11 +1,9 @@
 pipeline:
   build:
     image: quay.io/ukhomeofficedigital/drone-docker
-    repo: quay.io/sais/dacc
+    repo: quay.io/aliyanaziz/cicd
     secrets: [ docker_username, docker_password ]
     registry: quay.io
-    #dockerfile: Dockerfile
-    #force_tag: true
     tags:
       - ${DRONE_COMMIT_SHA}
       - latest
@@ -14,7 +12,7 @@ pipeline:
 
   build_tag:
     image: ukhomeoffice/drone-docker
-    repo: quay.io/sais/dacc
+    repo: quay.io/aliyanaziz/cicd
     secrets: [ docker_username, docker_password ]
     tags:
       - ${DRONE_TAG}
@@ -27,7 +25,7 @@ pipeline:
     secrets:
       - kube_token_acp_notprod
     environment:
-      - IMAGE_URL=quay.io/sais/dacc:v0.1
+      - IMAGE_URL=quay.io/aliyanaziz/cicd:v0.1
     commands:
       - apk update
       - apk add curl
