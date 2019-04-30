@@ -1,7 +1,7 @@
 pipeline:
   build:
     image: quay.io/ukhomeofficedigital/drone-docker
-    repo: quay.io/sais/dacc
+    repo: quay.io/aliyanaziz/cicd
     secrets: [ docker_username, docker_password ]
     tags:
       - ${DRONE_COMMIT_SHA}
@@ -11,7 +11,7 @@ pipeline:
 
   build_tag:
     image: quay.io/ukhomeofficedigital/drone-docker
-    repo: quay.io/sais/dacc
+    repo: quay.io/aliyanaziz/cicd
     secrets: [ docker_username, docker_password ]
     tags:
       - ${DRONE_TAG}
