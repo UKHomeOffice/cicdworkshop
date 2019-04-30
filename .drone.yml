@@ -19,13 +19,12 @@ pipeline:
     when:
       event: tag
 
-
   deploy-to-kube:
     image: ukhomeoffice/drone-docker
     secrets:
       - kube_token_acp_notprod
     environment:
-      - IMAGE_URL=quay.io/aliyanaziz/cicd:v0.1
+      - IMAGE_URL=quay.io/aliyanaziz/cicd:${DRONE_TAG}
     commands:
       - apk update
       - apk add curl
