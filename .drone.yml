@@ -3,7 +3,7 @@ pipeline:
     image: quay.io/ukhomeofficedigital/drone-docker
     repo: quay.io/sais/dacc
     secrets: [ docker_username, docker_password ]
-    registry: quay.io
+   #registry: quay.io
     dockerfile: Dockerfile
     force_tag: true
     tags:
