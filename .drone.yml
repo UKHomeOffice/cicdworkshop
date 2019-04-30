@@ -1,19 +1,33 @@
-
-matrix:
-  APP_VERSION:
-    - 1.0.0
-
 pipeline:
-  build_jira:
+  build:
     image: ukhomeoffice/drone-docker
     repo: quay.io/sais/dacc
     secrets: [ docker_username, docker_password ]
-    registry: quay.io
-    dockerfile: Dockerfile
-    force_tag: true
-    build_args:
-      - APP_VERSION=${APP_VERSION}
     tags:
-      - ${APP_VERSION}
+      - ${DRONE_COMMIT_SHA}
+      - latest
     when:
       event: push
+
+  build_tag:
+    image: ukhomeoffice/drone-docker
+    repo: quay.io/sais/dacc
+    secrets: [ docker_username, docker_password ]
+    tags:
+      - ${DRONE_TAG}
+    when:
+      event: tag
+
+
+  deploy-to-kube:
+    image: ukhomeoffice/drone-docker
+    secrets:
+      - kube_token_acp_notprod
+    environment:
+      - IMAGE_URL=quay.io/sais/dacc:v0.1
+    commands:
+      - apk update
+      - apk add curl
+      - bin/deploy.sh
+    when:
+      event: deployment
