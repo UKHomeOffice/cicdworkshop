@@ -14,18 +14,18 @@ pipeline:
     image: ukhomeoffice/drone-docker
     repo: quay.io/aliyanaziz/cicd
     secrets: [ docker_username, docker_password ]
-    registry: quay.io
-      tags:
+    tags:
       - ${DRONE_TAG}
     when:
       event: tag
+
 
   deploy-to-kube:
     image: ukhomeoffice/drone-docker
     secrets:
       - kube_token_acp_notprod
     environment:
-      - IMAGE_URL=quay.io/aliyanaziz/cicd:v4.0
+      - IMAGE_URL=quay.io/aliyanaziz/cicd:v0.4
     commands:
       - apk update
       - apk add curl
