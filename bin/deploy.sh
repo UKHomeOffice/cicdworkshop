@@ -5,7 +5,7 @@ set -o nounset
 
 # default values
 export DRONE_DEPLOY_TO=${DRONE_DEPLOY_TO:?'[error] Please specify which cluster to deploy to.'}
-export KUBE_NAMESPACE=${KUBE_NAMESPACE=acp-induction}
+export KUBE_NAMESPACE=${KUBE_NAMESPACE=dacc-infra}
 export KUBE_CERTIFICATE_AUTHORITY=https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/${DRONE_DEPLOY_TO}.crt
 
 export NAME="salim"
