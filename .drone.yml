@@ -1,7 +1,7 @@
 pipeline:
   build:
     image: quay.io/ukhomeofficedigital/drone-docker
-    repo: quay.io/aliyanaziz/cicd
+    repo: quay.io/aliyanaziz/cicdworkshop
     secrets: [ docker_username, docker_password ]
     registry: quay.io
     tags:
@@ -12,7 +12,7 @@ pipeline:
 
   build_tag:
     image: ukhomeoffice/drone-docker
-    repo: quay.io/aliyanaziz/cicd
+    repo: quay.io/aliyanaziz/cicdworkshop
     secrets: [ docker_username, docker_password ]
     tags:
       - ${DRONE_TAG}
@@ -25,7 +25,7 @@ pipeline:
     secrets:
       - kube_token_acp_notprod
     environment:
-      - IMAGE_URL=quay.io/aliyanaziz/cicd:v0.4
+      - IMAGE_URL=quay.io/aliyanaziz/cicdworkshop:v0.1
     commands:
       - apk update
       - apk add curl
