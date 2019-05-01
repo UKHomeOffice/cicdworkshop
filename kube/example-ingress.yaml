@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - {{ .NAME }}.cicdworkshop.homeoffice.gov.uk
+        - {{ .NAME }}.acp-induction.homeoffice.gov.uk
       secretName: {{ .NAME }}
   rules:
-    - host: {{ .NAME }}.cicdworkshop.homeoffice.gov.uk
+    - host: {{ .NAME }}.acp-induction.homeoffice.gov.uk
       http:
         paths:
           - path: /
