@@ -22,7 +22,7 @@ pipeline:
 
 
   deploy-to-kube:
-    image: ukhomeoffice/drone-docker
+    image: quay.io/ukhomeofficedigital/kd:v1.10.6
     secrets:
       - kube_token_acp_notprod
     environment:
